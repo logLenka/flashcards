@@ -3,17 +3,45 @@
 {% extends "cards/base.html" %}
 
 {% block content %}
+<div>
     {% if card %}
-        <h2>✏️ Edit Card</h2>
+    <h2>✏️ Edit Card</h2>
     {% else %}
-        <h2>✨ Create New Card</h2>
+    <h2>✨ Create New Card</h2>
     {% endif %}
-    <form method="post">
+</div>
+<style>
+    .cardWrap {
+        padding: 16px; 
+        border-radius: 6px; 
+        border: 1px solid #000
+    }
+    .questionForm input[type="text"]{
+        width: 100% !important;
+    }
+    .buttonsWrap {
+        display: flex !important; 
+        justify-content: end; 
+        gap:16px; 
+        align-items: center; 
+        flex-direction: row; 
+        display: block;
+    }
+    .cancelButton {
+        text-decoration: none; 
+        padding: 16px;
+    }
+</style>
+<div class="cardWrap">
+    <form method="post" class="questionForm">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Save Card">
+        <div class="buttonsWrap">
+            <a class="cancelButton" href="{% url 'card-list' %}">
+                Cancel
+            </a>
+            <input type="submit" value="Save Card">
+        </div>
     </form>
-    <a href="{% url 'card-list' %}">
-        Cancel
-    </a>
+    </div>
 {% endblock %}
